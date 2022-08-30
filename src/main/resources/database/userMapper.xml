@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="database.userMapper">
+    <resultMap id="userMap" type="User">
+        <result column="username" property="userName"></result>
+        <result column="userword" property="passWord"></result>
+    </resultMap>
+    <select id="selectAll" resultMap="userMap">
+        select username,userword from useraccount;
+    </select>
+    <select id="selectByName" parameterType="string" resultMap="userMap">
+        select * from useraccount
+        <where>
+            <if test="username != null">username=#{username};</if>
+        </where>
+    </select>
+    <insert id="addUser" >
+        insert into useraccount(username,userword) values(#{username},#{password});
+    </insert>
+    <delete id="delUser">
+        delete from useraccount
+    <where>
+       <if test="username !=null">username=#{username}</if>
+    </where>
+    </delete>
+</mapper>
